@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>HabitHero</title>
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <header>
+
+        <div class="logo">
+            🌱 HabitHero
+        </div>
+
+
+        <nav>
+
+            <button
+                onclick="scrollToSection('dashboard')"
+            >
+                Dashboard
+            </button>
+
+
+            <button
+                onclick="scrollToSection('habits')"
+            >
+                Habits
+            </button>
+
+
+            <button
+                onclick="scrollToSection('medicineSection')"
+            >
+                Medicine
+            </button>
+
+
+            <button
+                onclick="openProfileForm()"
+            >
+                👤 Profile
+            </button>
+
+
+            <button
+                class="clear-btn"
+                onclick="clearSavedData()"
+            >
+                🗑️ Clear Data
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- ================================
+         MAIN
+    ================================= -->
+
+    <main>
+
+
+        <!-- ================================
+             DASHBOARD
+        ================================= -->
+
+        <section
+            class="hero"
+            id="dashboard"
+        >
+
+            <p
+                class="welcome-text"
+                id="welcomeText"
+            >
+                Welcome to HabitHero
+            </p>
+
+
+            <h1>
+                Build Better Habits 🚀
+            </h1>
+
+
+            <p>
+                Track your daily habits, stay consistent,
+                and take control of your routine.
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <button
+                    class="start-btn"
+                    onclick="openHabitForm()"
+                >
+                    + Add Habit
+                </button>
+
+
+                <button
+                    class="notification-btn"
+                    id="notificationButton"
+                    onclick="requestNotifications()"
+                >
+                    🔔 Enable Notifications
+                </button>
+
+
+                <button
+                    class="test-btn"
+                    onclick="testReminder()"
+                >
+                    🧪 Test Reminder
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             REMINDER AREA
+        ================================= -->
+
+        <div id="reminderArea"></div>
+
+
+
+        <!-- ================================
+             PROFILE
+        ================================= -->
+
+        <section class="profile-section">
+
+
+            <div class="profile-card">
+
+
+                <div class="profile-avatar">
+                    👤
+                </div>
+
+
+                <div class="profile-details">
+
+                    <h2 id="profileName">
+                        Your Profile
+                    </h2>
+
+
+                    <p id="profileDetails">
+                        Create your profile to get started.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="edit-profile-btn"
+                    onclick="openProfileForm()"
+                >
+                    Edit Profile
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             STATISTICS
+        ================================= -->
+
+        <section class="stats">
+
+
+            <div class="card">
+
+                <h3>
+                    🔥 Streak
+                </h3>
+
+                <p id="streakValue">
+                    0 Days
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    ✅ Today's Progress
+                </h3>
+
+                <p id="progressValue">
+                    0 / 0
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    💊 Medicine
+                </h3>
+
+                <p id="medicineProgressValue">
+                    0 / 0
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    📊 Consistency
+                </h3>
+
+                <p id="consistencyValue">
+                    0%
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             HABITS
+        ================================= -->
+
+        <section
+            class="today"
+            id="habits"
+        >
+
+            <h2>
+                Today's Habits
+            </h2>
+
+
+            <div id="habitList"></div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             MEDICINES
+        ================================= -->
+
+        <section
+            class="today"
+            id="medicineSection"
+        >
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <h2>
+                        💊 Today's Medicines
+                    </h2>
+
+
+                    <p class="section-subtitle">
+                        Keep track of your scheduled medicines.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-small-btn"
+                    onclick="openMedicineForm()"
+                >
+                    + Add Medicine
+                </button>
+
+
+            </div>
+
+
+            <div id="medicineList"></div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         PROFILE MODAL
+    ================================= -->
+
+    <div
+        class="modal"
+        id="profileModal"
+    >
+
+        <div class="modal-box">
+
+
+            <h2>
+                👋 Let's Create Your Profile
+            </h2>
+
+
+            <p class="modal-subtitle">
+                Enter your details to get started with HabitHero.
+            </p>
+
+
+            <label>
+                Name
+            </label>
+
+
+            <input
+                type="text"
+                id="profileNameInput"
+                placeholder="Enter your name"
+            >
+
+
+            <label>
+                Age
+            </label>
+
+
+            <input
+                type="number"
+                id="profileAge"
+                placeholder="Enter your age"
+                min="1"
+                max="120"
+            >
+
+
+            <label>
+                Gender
+            </label>
+
+
+            <select id="profileGender">
+
+
+                <option value="">
+                    Select gender
+                </option>
+
+
+                <option value="Female">
+                    Female
+                </option>
+
+
+                <option value="Male">
+                    Male
+                </option>
+
+
+                <option value="Non-binary">
+                    Non-binary
+                </option>
+
+
+                <option value="Prefer not to say">
+                    Prefer not to say
+                </option>
+
+
+            </select>
+
+
+            <label>
+                Weight (kg)
+            </label>
+
+
+            <input
+                type="number"
+                id="profileWeight"
+                placeholder="Example: 60"
+                min="1"
+                step="0.1"
+            >
+
+
+            <label>
+                Height (cm)
+            </label>
+
+
+            <input
+                type="number"
+                id="profileHeight"
+                placeholder="Example: 165"
+                min="1"
+                step="0.1"
+            >
+
+
+            <button
+                class="save-btn"
+                onclick="saveProfile()"
+            >
+                Save Profile ✅
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         HABIT MODAL
+    ================================= -->
+
+    <div
+        class="modal"
+        id="habitModal"
+    >
+
+        <div class="modal-box">
+
+
+            <button
+                class="close-btn"
+                onclick="closeHabitForm()"
+            >
+                ✖
+            </button>
+
+
+            <h2>
+                ➕ Create a Habit
+            </h2>
+
+
+            <p class="modal-subtitle">
+                Add something you want to do consistently.
+            </p>
+
+
+            <label>
+                Habit Name
+            </label>
+
+
+            <input
+                type="text"
+                id="habitName"
+                placeholder="Example: Study"
+            >
+
+
+            <label>
+                Category
+            </label>
+
+
+            <select id="habitCategory">
+
+
+                <option value="Health">
+                    💪 Health
+                </option>
+
+
+                <option value="Study">
+                    📚 Study
+                </option>
+
+
+                <option value="Fitness">
+                    🏃 Fitness
+                </option>
+
+
+                <option value="Personal">
+                    🌟 Personal
+                </option>
+
+
+            </select>
+
+
+            <label>
+                Daily Goal
+            </label>
+
+
+            <input
+                type="text"
+                id="habitGoal"
+                placeholder="Example: 1 Hour"
+            >
+
+
+            <label>
+                Days of the Week
+            </label>
+
+
+            <div class="weekday-picker">
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Mon"
+                        class="habit-day"
+                    >
+                    <span>Mon</span>
+                </label>
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Tue"
+                        class="habit-day"
+                    >
+                    <span>Tue</span>
+                </label>
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Wed"
+                        class="habit-day"
+                    >
+                    <span>Wed</span>
+                </label>
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Thu"
+                        class="habit-day"
+                    >
+                    <span>Thu</span>
+                </label>
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Fri"
+                        class="habit-day"
+                    >
+                    <span>Fri</span>
+                </label>
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Sat"
+                        class="habit-day"
+                    >
+                    <span>Sat</span>
+                </label>
+
+
+                <label class="day-option">
+                    <input
+                        type="checkbox"
+                        value="Sun"
+                        class="habit-day"
+                    >
+                    <span>Sun</span>
+                </label>
+
+
+            </div>
+
+
+            <label>
+                Reminder Time
+            </label>
+
+
+            <input
+                type="time"
+                id="habitTime"
+            >
+
+
+            <button
+                class="save-btn"
+                onclick="addHabit()"
+            >
+                Save Habit ✅
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         MEDICINE MODAL
+    ================================= -->
+
+    <div
+        class="modal"
+        id="medicineModal"
+    >
+
+        <div class="modal-box">
+
+
+            <button
+                class="close-btn"
+                onclick="closeMedicineForm()"
+            >
+                ✖
+            </button>
+
+
+            <h2>
+                💊 Add Medicine
+            </h2>
+
+
+            <p class="modal-subtitle">
+                Record your scheduled medicine.
+            </p>
+
+
+            <label>
+                Medicine Name
+            </label>
+
+
+            <input
+                type="text"
+                id="medicineName"
+                placeholder="Example: Medicine A"
+            >
+
+
+            <label>
+                Schedule
+            </label>
+
+
+            <select id="medicineFrequency">
+
+
+                <option value="Once daily">
+                    Once daily
+                </option>
+
+
+                <option value="Twice daily">
+                    Twice daily
+                </option>
+
+
+                <option value="Three times daily">
+                    Three times daily
+                </option>
+
+
+                <option value="As scheduled">
+                    As scheduled
+                </option>
+
+
+            </select>
+
+
+            <label>
+                Reminder Time
+            </label>
+
+
+            <input
+                type="time"
+                id="medicineTime"
+            >
+
+
+            <label>
+                Notes
+            </label>
+
+
+            <input
+                type="text"
+                id="medicineNotes"
+                placeholder="Optional"
+            >
+
+
+            <button
+                class="save-btn"
+                onclick="addMedicine()"
+            >
+                Save Medicine ✅
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script src="./script.js"></script>
+
+
+</body>
+
+</html>
